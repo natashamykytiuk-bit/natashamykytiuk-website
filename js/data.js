@@ -112,8 +112,8 @@ const PROJECTS = [
 			"Applying accessible design principles (high contrast, large touch targets, legible typography) using **Photoshop** and **Figma**."
 		],
 		github: "#",	// TODO: replace with repo URL
-		demo: "#",	// TODO: replace with demo URL
-		demoLabel: "Demo"
+		demo: "https://welicare.ca",
+		demoLabel: "Learn more about what Welicare does"
 	},
 	{
 		title: "Digital Combination Lock",
@@ -123,7 +123,7 @@ const PROJECTS = [
 		],
 		about: [],
 		summary: "A 4-state Moore FSM combination lock on a DE10-Lite board, with next-state logic derived by hand from Karnaugh maps.",
-		subtitle: "Digital design",
+		subtitle: "Digital Logic Design, FSM Design",
 		tags: ["SystemVerilog", "FPGA", "Intel MAX 10", "Intel Quartus Prime"],
 		points: [
 			"Designed a 4-state **Moore FSM** in **SystemVerilog** to control a 10-bit combination lock on an **Intel MAX 10 FPGA**, registering exactly one state change per button press.",
@@ -157,12 +157,12 @@ const PROJECTS = [
 		demoLabel: "Demo"
 	},
 	{
-		title: "SPOTR: Gym Traffic Web App",
-		slug: "spotr",
+		title: "Spottr: Gym Traffic Web App",
+		slug: "spottr",
 		photos: [],
 		about: [],
 		summary: "A team web app showing live gym traffic at UBC Rec North, with a Java REST backend on AWS and a TypeScript frontend.",
-		subtitle: "Team project",
+		subtitle: "Full-Stack Web Development, Cloud Deployment",
 		tags: ["Java", "TypeScript", "REST API", "MVC", "AWS"],
 		points: [
 			"Developing a team web application that shows live gym traffic at UBC Rec North, helping students choose when to work out and which machines are free.",
@@ -180,7 +180,7 @@ const PROJECTS = [
 		photos: [],
 		about: [],
 		summary: "A SystemVerilog keypad scanner on an Intel MAX 10 FPGA that sends one clean key code per press to a second board, closing timing at 50 MHz.",
-		subtitle: "Digital design",
+		subtitle: "Digital Design, Clock Domain Crossing",
 		tags: ["SystemVerilog", "FPGA", "Intel MAX 10", "Intel Quartus Prime"],
 		points: [
 			"Designed a **SystemVerilog FSM** to scan a 4×4 matrix keypad on an **Intel MAX 10 FPGA**, outputting exactly one key code per press despite contact bounce.",
@@ -198,7 +198,7 @@ const PROJECTS = [
 		photos: [],
 		about: [],
 		summary: "An Arduino-controlled claw that grips, checks the lift with ultrasonic sensing, and retries on its own.",
-		subtitle: "Embedded systems",
+		subtitle: "Embedded Systems, Sensor Integration",
 		tags: ["C/C++", "Arduino", "Closed-Loop Control", "Servo Control", "Sensor Calibration"],
 		points: [
 			"Implemented a four-state control system in **C/C++** on **Arduino** to automate grip, lift verification, and retry sequences using ultrasonic sensing and servo actuation.",

@@ -390,3 +390,7 @@ a.card-media { display: block; }
 	.project-pager { grid-template-columns: 1fr; }
 	.pager-next { text-align: left; }
 }
+
+/* Resume button in the nav */
+.nav-links a.nav-resume { border: 1.5px solid var(--accent); color: var(--accent); margin-left: 6px; }
+.nav-links a.nav-resume:hover { background: var(--accent); color: #fff; }

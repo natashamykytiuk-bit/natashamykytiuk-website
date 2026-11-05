@@ -55,7 +55,8 @@ function renderAbout() {
 	document.getElementById("hero-buttons").append(
 		el("a", { class: "btn btn-primary", href: PROFILE.resume, download: "", text: "Download Resume" }),
 		el("a", { class: "btn btn-outline", href: "projects.html", text: "View Projects" }),
-		el("a", { class: "btn btn-outline", href: PROFILE.github, target: "_blank", rel: "noopener noreferrer", text: "GitHub" })
+		el("a", { class: "btn btn-outline", href: PROFILE.github, target: "_blank", rel: "noopener noreferrer", text: "GitHub" }),
+		el("a", { class: "btn btn-outline", href: PROFILE.linkedin, target: "_blank", rel: "noopener noreferrer", text: "LinkedIn" })
 	);
 }
 
