@@ -200,7 +200,6 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 .exp {
 	background: var(--bg);
 	border: 1px solid var(--border);
-	border-left: 4px solid var(--accent);
 	border-radius: var(--radius);
 	padding: 20px 22px;
 }
@@ -293,7 +292,6 @@ footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: 0.
 [data-theme="evergreen"] .btn-primary { background: var(--amber); border-color: var(--amber); color: var(--on-amber); }
 [data-theme="evergreen"] .btn-primary:hover { background: #dc9a2a; filter: none; }
 [data-theme="evergreen"] .btn-outline { color: var(--accent); border-color: var(--accent); }
-[data-theme="evergreen"] .exp { border-left-color: var(--accent); }
 [data-theme="evergreen"] .card:hover { box-shadow: 0 10px 26px rgba(31, 90, 69, 0.12); }
 [data-theme="evergreen"] .placeholder-note { color: #8a5a0c; }
 
@@ -394,3 +392,19 @@ a.card-media { display: block; }
 /* Resume button in the nav */
 .nav-links a.nav-resume { border: 1.5px solid var(--accent); color: var(--accent); margin-left: 6px; }
 .nav-links a.nav-resume:hover { background: var(--accent); color: #fff; }
+
+/* Experience logos (like LinkedIn): set "logo" on an EXPERIENCE entry in js/data.js */
+.exp.has-logo { display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; }
+.exp-logo {
+	width: 56px;
+	height: 56px;
+	border-radius: 10px;
+	object-fit: contain;
+	background: #fff;
+	border: 1px solid var(--border);
+}
+.exp-body { min-width: 0; }
+@media (max-width: 520px) {
+	.exp.has-logo { grid-template-columns: 44px 1fr; gap: 14px; }
+	.exp-logo { width: 44px; height: 44px; border-radius: 8px; }
+}

@@ -49,6 +49,7 @@ const EXPERIENCE = [
 		entries: [
 			{
 				org: "UBC Solar Racing",
+				logo: "img/logos/ubc-solar.png",
 				role: "Embedded Firmware Developer",
 				location: "Vancouver, BC",
 				dates: "Sep. 2026 – Present",
@@ -66,6 +67,7 @@ const EXPERIENCE = [
 		entries: [
 			{
 				org: "Rangeland Engineering",
+				logo: "img/logos/rangeland.png",
 				role: "Engineering Intern",
 				location: "Calgary, AB",
 				dates: "May 2026 – Aug. 2026",
@@ -111,7 +113,7 @@ const PROJECTS = [
 			"Using **Claude Code** to support development, debugging, and testing, with version control through **Git** and **GitHub**.",
 			"Applying accessible design principles (high contrast, large touch targets, legible typography) using **Photoshop** and **Figma**."
 		],
-		github: "#",	// TODO: replace with repo URL
+		github: "https://github.com/natashamykytiuk-bit/Welicare",
 		demo: "https://welicare.ca",
 		demoLabel: "Learn more about what Welicare does"
 	},

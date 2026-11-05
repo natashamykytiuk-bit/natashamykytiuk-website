@@ -76,13 +76,16 @@ function renderExperience() {
 	EXPERIENCE.forEach(group => {
 		wrap.appendChild(el("h3", { class: "exp-group-title", text: group.group }));
 		wrap.appendChild(el("div", { class: "exp-list" }, group.entries.map(e =>
-			el("article", { class: "exp" }, [
-				el("div", { class: "exp-head" }, [
-					el("h3", { text: e.org }),
-					el("span", { class: "meta", text: e.location + " · " + e.dates })
-				]),
-				el("p", { class: "role", text: e.role }),
-				el("ul", { class: "points" }, e.points.map(p => rich("li", p)))
+			el("article", { class: "exp" + (e.logo ? " has-logo" : "") }, [
+				e.logo ? el("img", { class: "exp-logo", src: e.logo, alt: e.org + " logo", width: "56", height: "56", loading: "lazy" }) : null,
+				el("div", { class: "exp-body" }, [
+					el("div", { class: "exp-head" }, [
+						el("h3", { text: e.org }),
+						el("span", { class: "meta", text: e.location + " · " + e.dates })
+					]),
+					el("p", { class: "role", text: e.role }),
+					el("ul", { class: "points" }, e.points.map(p => rich("li", p)))
+				])
 			])
 		)));
 	});
