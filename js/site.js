@@ -44,7 +44,12 @@ function projectUrl(p) {
 /* ---------- Home page ---------- */
 
 function renderAbout() {
-	document.getElementById("about-title").textContent = PROFILE.greeting;
+	const title = document.getElementById("about-title");
+	title.textContent = "";
+	PROFILE.greeting.split("👋").forEach((part, i) => {
+		if (i) title.appendChild(el("span", { class: "wave", "aria-hidden": "true", text: "👋" }));
+		title.appendChild(document.createTextNode(part));
+	});
 
 	const intro = document.getElementById("intro");
 	PROFILE.intro.forEach(text => intro.appendChild(rich("p", text)));
@@ -61,7 +66,7 @@ function renderAbout() {
 }
 
 function renderCollage() {
-	const photos = (PROFILE.photos || []).slice(0, 4);
+	const photos = (PROFILE.photos || []).slice(0, 5);
 	if (!photos.length) return;
 	const collage = document.getElementById("hero-collage");
 	photos.forEach((ph, i) => collage.appendChild(
@@ -170,14 +175,10 @@ function renderProjectPage() {
 	if (meta) meta.setAttribute("content", p.summary);
 
 	const photos = p.photos || [];
-	const gallery = photos.length ? el("div", { class: "gallery gallery-" + Math.min(photos.length, 4) }, photos.map(ph =>
-		el("figure", {}, [
-			el("img", { src: ph.src, alt: ph.alt || "", loading: "lazy" }),
-			ph.caption ? el("figcaption", { text: ph.caption }) : null
-		])
-	)) : null;
+	const slideshow = photos.length ? makeSlideshow(photos, p.title) : null;
 
 	const about = p.about || [];
+	const why = p.why || [];
 	const prev = PROJECTS[(index - 1 + PROJECTS.length) % PROJECTS.length];
 	const next = PROJECTS[(index + 1) % PROJECTS.length];
 
@@ -193,15 +194,22 @@ function renderProjectPage() {
 				linkButton(p.demoLabel || "Demo", p.demo, "btn-primary", p.title + " " + (p.demoLabel || "demo"))
 			])
 		]),
-		gallery || "",
-		el("div", { class: "project-body" }, [
-			about.length ? el("section", { class: "project-section" }, [
-				el("h2", { text: "Overview" }),
-				...about.map(t => rich("p", t))
-			]) : null,
-			el("section", { class: "project-section" }, [
-				el("h2", { text: "What I did" }),
-				el("ul", { class: "points" }, p.points.map(pt => rich("li", pt)))
+		// Photos on the left (they stay in view while you scroll), write-up on the right
+		el("div", { class: "project-layout" + (slideshow ? " has-photos" : "") }, [
+			slideshow,
+			el("div", { class: "project-body" }, [
+				why.length ? el("section", { class: "project-section" }, [
+					el("h2", { text: "Why I built this" }),
+					...why.map(t => rich("p", t))
+				]) : null,
+				about.length ? el("section", { class: "project-section" }, [
+					el("h2", { text: "Overview" }),
+					...about.map(t => rich("p", t))
+				]) : null,
+				el("section", { class: "project-section" }, [
+					el("h2", { text: "What I did" }),
+					el("ul", { class: "points" }, p.points.map(pt => rich("li", pt)))
+				])
 			])
 		]),
 		el("nav", { class: "project-pager", "aria-label": "More projects" }, [
@@ -209,6 +217,145 @@ function renderProjectPage() {
 			el("a", { class: "pager-next", href: projectUrl(next) }, [el("span", { text: "Next" }), el("strong", { text: next.title })])
 		])
 	);
+}
+
+// Photo slideshow: arrow buttons, dots, counter, captions, keyboard arrows, and swipe.
+// No autoplay, so visitors stay in control.
+function makeSlideshow(photos, title) {
+	let current = 0;
+	const many = photos.length > 1;
+
+	const slides = photos.map((ph, i) => {
+		const fig = el("figure", { class: "slide" + (i === 0 ? " is-active" : ""), role: "group", "aria-roledescription": "slide", "aria-label": (i + 1) + " of " + photos.length }, [
+			el("img", { src: ph.src, alt: ph.alt || "", loading: i === 0 ? "eager" : "lazy", draggable: "false" })
+		]);
+		if (i !== 0) fig.setAttribute("aria-hidden", "true");
+		return fig;
+	});
+	const stage = el("div", { class: "slides" }, slides);
+
+	const caption = el("p", { class: "slide-caption", "aria-live": "polite" });
+	const counter = el("span", { class: "slide-count" });
+	const dots = photos.map((ph, i) => {
+		const d = el("button", { class: "slide-dot", type: "button", "aria-label": "Show photo " + (i + 1) });
+		d.addEventListener("click", () => show(i));
+		return d;
+	});
+	const prevBtn = el("button", { class: "slide-btn slide-prev", type: "button", "aria-label": "Previous photo" }, [el("span", { "aria-hidden": "true", text: "‹" })]);
+	const nextBtn = el("button", { class: "slide-btn slide-next", type: "button", "aria-label": "Next photo" }, [el("span", { "aria-hidden": "true", text: "›" })]);
+	prevBtn.addEventListener("click", () => show(current - 1));
+	nextBtn.addEventListener("click", () => show(current + 1));
+
+	function show(i) {
+		current = (i + photos.length) % photos.length;
+		slides.forEach((s, j) => {
+			const on = j === current;
+			s.classList.toggle("is-active", on);
+			if (on) s.removeAttribute("aria-hidden");
+			else s.setAttribute("aria-hidden", "true");
+		});
+		dots.forEach((d, j) => {
+			if (j === current) d.setAttribute("aria-current", "true");
+			else d.removeAttribute("aria-current");
+		});
+		caption.textContent = photos[current].caption || "";
+		caption.hidden = !photos[current].caption;
+		counter.textContent = (current + 1) + " / " + photos.length;
+		if (viewer && viewer.open) fillViewer();
+	}
+
+	// ---- Full-screen viewer (a native <dialog>: Esc closes it and focus stays inside) ----
+	let viewer = null, vImg, vCaption, vCount;
+	function buildViewer() {
+		vImg = el("img", { class: "viewer-img", alt: "" });
+		vCaption = el("p", { class: "viewer-caption" });
+		vCount = el("span", { class: "viewer-count" });
+		const close = el("button", { class: "viewer-btn viewer-close", type: "button", "aria-label": "Close full screen" }, [el("span", { "aria-hidden": "true", text: "×" })]);
+		const vPrev = el("button", { class: "viewer-btn viewer-prev", type: "button", "aria-label": "Previous photo" }, [el("span", { "aria-hidden": "true", text: "‹" })]);
+		const vNext = el("button", { class: "viewer-btn viewer-next", type: "button", "aria-label": "Next photo" }, [el("span", { "aria-hidden": "true", text: "›" })]);
+		close.addEventListener("click", () => closeViewer());
+		vPrev.addEventListener("click", () => show(current - 1));
+		vNext.addEventListener("click", () => show(current + 1));
+		viewer = el("dialog", { class: "viewer", "aria-label": title + " photos, full screen" }, [
+			el("div", { class: "viewer-stage" }, [vImg]),
+			many ? vPrev : null,
+			many ? vNext : null,
+			close,
+			el("div", { class: "viewer-bar" }, [vCaption, many ? vCount : null])
+		]);
+		// Click the dark background (not the photo or buttons) to close
+		viewer.addEventListener("click", e => {
+			if (e.target === viewer || e.target.classList.contains("viewer-stage")) closeViewer();
+		});
+		viewer.addEventListener("keydown", e => {
+			if (e.key === "Escape") { e.preventDefault(); closeViewer(); return; }
+			if (!many) return;
+			if (e.key === "ArrowLeft") { e.preventDefault(); show(current - 1); }
+			if (e.key === "ArrowRight") { e.preventDefault(); show(current + 1); }
+		});
+		// Swipe inside the viewer
+		let sx = null;
+		viewer.addEventListener("pointerdown", e => { sx = e.clientX; });
+		viewer.addEventListener("pointerup", e => {
+			if (sx === null || !many) return;
+			const dx = e.clientX - sx;
+			sx = null;
+			if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+		});
+		// Backup for any other way the browser closes the dialog
+		viewer.addEventListener("close", () => closeViewer());
+		document.body.appendChild(viewer);
+	}
+	function fillViewer() {
+		const ph = photos[current];
+		vImg.src = ph.src;
+		vImg.alt = ph.alt || "";
+		vCaption.textContent = ph.caption || "";
+		vCount.textContent = (current + 1) + " / " + photos.length;
+	}
+	function closeViewer() {
+		if (viewer.open) viewer.close();
+		if (!document.documentElement.classList.contains("viewer-open")) return;
+		document.documentElement.classList.remove("viewer-open");
+		expandBtn.focus();
+	}
+	function openViewer() {
+		if (!viewer) buildViewer();
+		fillViewer();
+		document.documentElement.classList.add("viewer-open");
+		viewer.showModal();
+	}
+
+	const expandBtn = el("button", { class: "slide-expand", type: "button", "aria-label": "View photo full screen" }, [el("span", { "aria-hidden": "true", text: "⤢" })]);
+	expandBtn.addEventListener("click", () => openViewer());
+
+	const root = el("section", { class: "slideshow", "aria-roledescription": "carousel", "aria-label": title + " photos" }, [
+		el("div", { class: "slides-frame" }, [stage, many ? prevBtn : null, many ? nextBtn : null, expandBtn]),
+		many ? el("div", { class: "slide-controls" }, [el("div", { class: "slide-dots" }, dots), counter]) : null,
+		caption
+	]);
+
+	if (many) {
+		// Left/right arrow keys while the slideshow has focus
+		root.addEventListener("keydown", e => {
+			if (e.key === "ArrowLeft") { e.preventDefault(); show(current - 1); }
+			if (e.key === "ArrowRight") { e.preventDefault(); show(current + 1); }
+		});
+		// Swipe on touch screens
+		let startX = null;
+		stage.addEventListener("pointerdown", e => { startX = e.clientX; });
+		stage.addEventListener("pointerup", e => {
+			if (startX === null) return;
+			const dx = e.clientX - startX;
+			startX = null;
+			if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+			else openViewer();
+		});
+	} else {
+		stage.addEventListener("click", () => openViewer());
+	}
+	show(0);
+	return root;
 }
 
 /* ---------- Shared: nav, fade-up animation, footer ---------- */
@@ -266,7 +413,7 @@ function setupReveal() {
 		[".contact-list li"],
 		[".page-header > *"],
 		[".project-header > *", ".back-link"],
-		[".gallery figure"],
+		[".slideshow"],
 		[".project-section", ".project-pager"]
 	];
 	const targets = [];
@@ -316,4 +463,23 @@ function setupReveal() {
 	setupNav();
 	setupReveal();
 	document.getElementById("year").textContent = new Date().getFullYear();
+})();
+
+// Light / dark mode toggle
+(function () {
+	const root = document.documentElement;
+	const btn = document.querySelector(".mode-btn");
+	if (!btn) return;
+	const render = () => {
+		const dark = root.dataset.mode === "dark";
+		btn.textContent = dark ? "☀︎" : "☾";
+		btn.setAttribute("aria-pressed", String(dark));
+		btn.title = dark ? "Switch to light mode" : "Switch to dark mode";
+	};
+	btn.addEventListener("click", () => {
+		root.dataset.mode = root.dataset.mode === "dark" ? "light" : "dark";
+		localStorage.setItem("mode", root.dataset.mode);
+		render();
+	});
+	render();
 })();

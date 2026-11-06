@@ -15,11 +15,15 @@ const PROFILE = {
 		"I like work that sits between hardware and software, and I'm looking for a **Summer 2027 co-op** in software, firmware, or hardware engineering."
 	],
 	facts: ["Vancouver, BC", "Open to relocation", "Co-op: 4, 8, 12, or 16 months"],
-	// Photo collage beside the intro: up to 4 photos (1 = tall left, 2 = short right,
-	// 3 = tall right, 4 = short left). Put files in an img/ folder next to index.html.
+	// Photo collage beside the intro: up to 5 photos. 1 = big headshot (top left),
+	// 2 = top right, 3 = middle right, 4 = wide bottom left, 5 = bottom right.
 	// Leave the list empty to hide the collage.
 	photos: [
-		// { src: "img/photo-1.jpg", alt: "Describe the photo" },
+		{ src: "img/about/headshot.jpg", alt: "Natasha Mykytiuk" },
+		{ src: "img/about/system-test.jpg", alt: "UBC Solar team running a full system test with live telemetry" },
+		{ src: "img/about/battery-testing.jpg", alt: "UBC Solar team testing battery modules and electronics" },
+		{ src: "img/about/ubc-solar-team.jpg", alt: "The UBC Solar team with the solar car" },
+		{ src: "img/about/driver-display.jpg", alt: "Debugging a UBC Solar driver display board" },
 	],
 	email: "natasha.mykytiuk@gmail.com",
 	linkedin: "https://www.linkedin.com/in/natashamykytiuk",
@@ -89,12 +93,17 @@ const HOME_PROJECT_COUNT = 3;
 	photos:  the first photo is the card cover; all of them show on the project page.
 	         e.g. { src: "img/welicare/home.jpg", alt: "Home screen", caption: "Optional caption" }
 	         Leave empty for a text-only card and no gallery.
+	why:     optional "Why I built this" paragraphs, shown first on the project page.
 	about:   optional longer paragraphs shown only on the project page, above the bullets.
 	points:  the "What I did" bullets on the project page. */
 const PROJECTS = [
 	{
 		title: "Welicare: Dementia Care Mobile App",
 		slug: "welicare",
+		why: [
+			"The inspiration for Welicare came from my own personal experiences working with mid-to-late-stage dementia patients. I have worked with this population for over four years, and have seen firsthand how limited resources and staffing can make it difficult to provide meaningful, individualized care.",
+			"Generic programming like bingo and word games doesn't do much for a resident who spent 40 years working on a farm or who lights up at Patsy Cline. Often, the most meaningful details that would make a one-on-one session land live in a family member's head or a binder in a filing cabinet. Welicare takes this information and puts it somewhere it can actually be useful in the moment: on a shared iPad with the resident sitting right there."
+		],
 		photos: [
 			{ src: "img/welicare/resident-home.png", alt: "Welicare resident home screen with a personalized greeting and large activity tiles", caption: "Resident Mode home: a personalized greeting and large, high-contrast activity tiles." },
 			{ src: "img/welicare/app-home.png", alt: "Welicare mode picker showing Resident, Family, Caregiver, Volunteer and Admin modes", caption: "Role-based modes for residents, family, caregivers, volunteers and admins." },
