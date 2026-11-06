@@ -11,7 +11,7 @@ const PROFILE = {
 	// Intro paragraphs. Wrap words in **double asterisks** to highlight them.
 	intro: [
 		"I'm a **Computer Engineering** student at the **University of British Columbia**, graduating in May 2029.",
-		"Right now I write embedded C firmware for **UBC Solar Racing**, working on the driver display that shows live telemetry during races. I'm also building **Welicare**, a tablet app that helps caregivers support people living with dementia.",
+		"Right now I write embedded C/C++ firmware for **UBC Solar Racing**, working on the driver display that shows live telemetry during races. I'm also building **Welicare**, a tablet app that helps caregivers support people living with dementia.",
 		"I like work that sits between hardware and software, and I'm looking for a **Summer 2027 co-op** in software, firmware, or hardware engineering."
 	],
 	facts: ["Vancouver, BC", "Open to relocation", "Co-op: 4, 8, 12, or 16 months"],
@@ -58,10 +58,10 @@ const EXPERIENCE = [
 				location: "Vancouver, BC",
 				dates: "Sep. 2026 – Present",
 				points: [
-					"Leading the **LCD display update** for the driver board (DRD), writing **C firmware** on **FreeRTOS** for an **STM32F103** that shows live telemetry data to the driver during races.",
+					"Leading the **LCD display update** for the driver board (DRD), writing **C/C++ firmware** on **FreeRTOS** for an **STM32F103** that shows live telemetry data to the driver during races.",
 					"Built **DRD health monitoring** that tracks fault flags and reports status over CAN to catch board failures.",
 					"Decoded **CAN** messages from the telemetry system and updated the display in real time, splitting the work into separate FreeRTOS tasks for CAN input, health checks, and screen drawing.",
-					"Fixed a **push-to-talk (PTT)** bug in the DRD firmware and updated pin mappings to match **Altium** schematic revision v2.1, working with the electrical team to check the changes on hardware."
+					"Collaborating with the electrical team to keep firmware in sync with **Altium** board revisions, debugging issues and validating changes on hardware."
 				]
 			}
 		]
