@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ios">
+<head>
+	<script>(function(){var m=localStorage.getItem("mode");if(!m)m=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.mode=m;})();</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Experience | Natasha Mykytiuk</title>
+	<meta name="description" content="Work, design team, and other experience of Natasha Mykytiuk, Computer Engineering student at UBC.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css?v=25">
+</head>
+<body data-page="experience">
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<header class="site-header">
+		<nav class="container nav" aria-label="Main">
+			<a class="brand" href="./">Natasha Mykytiuk</a>
+			<button class="menu-btn" aria-expanded="false" aria-controls="nav-links">Menu</button>
+			<ul class="nav-links" id="nav-links">
+				<li><a href="./#about">About</a></li>
+				<li><a href="experience.html">Experience</a></li>
+				<li><a href="./#skills">Skills</a></li>
+				<li><a href="projects.html">Projects</a></li>
+				<li><a href="./#contact">Contact</a></li>
+				<li><a class="nav-resume" href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+			</ul>
+			<button class="mode-btn" type="button" aria-label="Toggle dark mode"></button>
+		</nav>
+	</header>
+
+	<main id="main">
+		<section class="page-section" aria-labelledby="experience-title">
+			<div class="container">
+				<div class="page-header">
+					<p class="eyebrow">Experience</p>
+					<h1 id="experience-title">Where I've worked</h1>
+					<p class="page-lead">Engineering design teams, technical work, and the jobs that taught me how to communicate with and support people.</p>
+				</div>
+				<div id="experience-list"></div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="container">&copy; <span id="year"></span> Natasha Mykytiuk</div>
+	</footer>
+
+	<script src="js/data.js?v=25"></script>
+	<script src="js/site.js?v=25"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /* =========================================================
 	SITE CODE: shared by every page. Content lives in js/data.js;
 	you shouldn't need to edit this file.
-	Each page sets <body data-page="home|projects|project">.
+	Each page sets <body data-page="home|experience|projects|project">.
 ========================================================= */
 
 function el(tag, attrs, children) {
@@ -47,7 +47,7 @@ function renderAbout() {
 	const title = document.getElementById("about-title");
 	title.textContent = "";
 	PROFILE.greeting.split("👋").forEach((part, i) => {
-		if (i) title.appendChild(el("span", { class: "wave", "aria-hidden": "true", text: "👋" }));
+		if (i) title.appendChild(el("span", { class: "wave", role: "img", "aria-label": "waving hand", text: "👋" }));
 		title.appendChild(document.createTextNode(part));
 	});
 
@@ -69,6 +69,8 @@ function renderCollage() {
 	const photos = (PROFILE.photos || []).slice(0, 5);
 	if (!photos.length) return;
 	const collage = document.getElementById("hero-collage");
+	collage.setAttribute("role", "group");
+	collage.setAttribute("aria-label", "Photos of Natasha and her work with UBC Solar");
 	photos.forEach((ph, i) => collage.appendChild(
 		el("div", { class: "photo" }, [el("img", { src: ph.src, alt: ph.alt || "", loading: i ? "lazy" : "eager" })])
 	));
@@ -76,23 +78,31 @@ function renderCollage() {
 	collage.closest(".hero").classList.add("has-collage");
 }
 
-function renderExperience() {
+function renderExperience(full) {
 	const wrap = document.getElementById("experience-list");
-	EXPERIENCE.forEach(group => {
+	EXPERIENCE.filter(g => full || !g.fullPageOnly).forEach(group => {
+		const entries = group.entries.filter(e => full || !e.fullPageOnly);
+		if (!entries.length) return;
 		wrap.appendChild(el("h3", { class: "exp-group-title", text: group.group }));
-		wrap.appendChild(el("div", { class: "exp-list" }, group.entries.map(e =>
-			el("article", { class: "exp" + (e.logo ? " has-logo" : "") }, [
+		wrap.appendChild(el("div", { class: "exp-list" }, entries.map(e => {
+			// An entry can hold one role, or several roles at the same place under "roles"
+			const roles = e.roles || [{ role: e.role, dates: e.dates, points: e.points }];
+			const meta = (r) => [e.location, r.dates].filter(Boolean).join(" · ");
+			const body = roles.length === 1
+				? [
+					el("div", { class: "exp-head" }, [el("h3", { text: e.org }), el("span", { class: "meta", text: meta(roles[0]) })]),
+					el("p", { class: "role", text: roles[0].role }),
+					el("ul", { class: "points" }, roles[0].points.map(p => rich("li", p)))
+				]
+				: [el("h3", { text: e.org })].concat(roles.map(r => el("div", { class: "exp-role" }, [
+					el("div", { class: "exp-head" }, [el("p", { class: "role", text: r.role }), el("span", { class: "meta", text: meta(r) })]),
+					el("ul", { class: "points" }, r.points.map(p => rich("li", p)))
+				])));
+			return el("article", { class: "exp" + (e.logo ? " has-logo" : "") }, [
 				e.logo ? el("img", { class: "exp-logo", src: e.logo, alt: e.org + " logo", width: "56", height: "56", loading: "lazy" }) : null,
-				el("div", { class: "exp-body" }, [
-					el("div", { class: "exp-head" }, [
-						el("h3", { text: e.org }),
-						el("span", { class: "meta", text: e.location + " · " + e.dates })
-					]),
-					el("p", { class: "role", text: e.role }),
-					el("ul", { class: "points" }, e.points.map(p => rich("li", p)))
-				])
-			])
-		)));
+				el("div", { class: "exp-body" }, body)
+			]);
+		})));
 	});
 }
 
@@ -134,7 +144,7 @@ function projectCard(p) {
 	return el("article", { class: "card" }, [
 		// No photo yet: the card shows just the name and description
 		cover ? el("a", { class: "card-media", href: url, tabindex: "-1", "aria-hidden": "true" }, [
-			el("img", { src: cover.src, alt: "", loading: "lazy" })
+			el("img", { src: cover.src, alt: cover.alt || "", loading: "lazy" })
 		]) : null,
 		el("div", { class: "card-body" }, [
 			el("h3", {}, [el("a", { class: "card-title", href: url, text: p.title })]),
@@ -376,10 +386,10 @@ function setupNav() {
 		if (e.key === "Escape" && links.classList.contains("open")) { close(); btn.focus(); }
 	});
 
-	// Projects pages: highlight "Projects" in the nav
+	// Other pages: highlight their link in the nav
 	const page = document.body.dataset.page;
 	if (page !== "home") {
-		const a = links.querySelector('a[href="projects.html"]');
+		const a = links.querySelector(page === "experience" ? 'a[href="experience.html"]' : 'a[href="projects.html"]');
 		if (a) { a.classList.add("active"); a.setAttribute("aria-current", "page"); }
 		return;
 	}
@@ -455,6 +465,8 @@ function setupReveal() {
 		renderProjectGrid("projects-grid", PROJECTS.slice(0, HOME_PROJECT_COUNT));
 		renderValues();
 		renderContact();
+	} else if (page === "experience") {
+		renderExperience(true);
 	} else if (page === "projects") {
 		renderProjectGrid("projects-grid", PROJECTS);
 	} else if (page === "project") {

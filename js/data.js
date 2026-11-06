@@ -19,7 +19,7 @@ const PROFILE = {
 	// 2 = top right, 3 = middle right, 4 = wide bottom left, 5 = bottom right.
 	// Leave the list empty to hide the collage.
 	photos: [
-		{ src: "img/about/headshot.jpg", alt: "Natasha Mykytiuk" },
+		{ src: "img/about/headshot.jpg", alt: "Headshot of Natasha Mykytiuk smiling, wearing a white blouse" },
 		{ src: "img/about/system-test.jpg", alt: "UBC Solar team running a full system test with live telemetry" },
 		{ src: "img/about/battery-testing.jpg", alt: "UBC Solar team testing battery modules and electronics" },
 		{ src: "img/about/ubc-solar-team.jpg", alt: "The UBC Solar team with the solar car" },
@@ -79,6 +79,71 @@ const EXPERIENCE = [
 					"Provided **project coordination** and **document control** across major industrial and infrastructure projects, including CNRL Horizon and the Trans Mountain Expansion Project.",
 					"Performed quality checks on engineering drawings and technical documents using **Bluebeam** and **Aconex** prior to client transmittal.",
 					"Tracked client comments and deliverable revisions, supporting timely turnaround and clear audit trails throughout review cycles."
+				]
+			},
+			// fullPageOnly: shows on experience.html but not the home page
+			{
+				org: "Alberta Health Services",
+				logo: "img/logos/ahs.png",
+				fullPageOnly: true,
+				role: "Administrative Support II",
+				dates: "Mar. 2025 – Jan. 2026",
+				points: [
+					"Collected structured data from Albertans, in support of provincial health research and quality improvement initiatives.",
+					"Maintained accurate, confidential records of sensitive health information in compliance with organizational and legal requirements.",
+					"Communicated clearly and professionally through complex, sensitive conversations in a fast-paced environment."
+				]
+			},
+			{
+				org: "Cogir Senior Living",
+				logo: "img/logos/cogir.png",
+				fullPageOnly: true,
+				roles: [
+					{
+						role: "Active Living Aide",
+						dates: "Nov. 2024 – Jul. 2025",
+						points: [
+							"Planned and ran recreational programs for residents across multiple locations, adapting activities for Memory Care residents.",
+							"Created and maintained documentation for program sign-ups, participation tracking, and resident assessments."
+						]
+					},
+					{
+						role: "Receptionist",
+						dates: "Oct. 2024 – Jul. 2025",
+						points: [
+							"Served as the first point of contact for residents, families, and staff, managing calls, messages, and requests.",
+							"Maintained effective communication and relationships with residents, families, and staff."
+						]
+					}
+				]
+			},
+			{
+				org: "Youth Leaders in Law",
+				logo: "img/logos/yll.png",
+				fullPageOnly: true,
+				role: "Administrative Director",
+				location: "Calgary, AB",
+				dates: "Nov. 2022 – Feb. 2024",
+				points: [
+					"Co-organized the annual YLL Calgary conference for **150+ participants**, managing schedules, scripts, reports, and participant communications.",
+					"Coordinated an **8–10 person team**, scheduling meetings and keeping minutes to track decisions and action items.",
+					"Served as the main contact for external partners, including lawyers, schools, and participants."
+				]
+			}
+		]
+	},
+	{
+		group: "Volunteer Experience",
+		fullPageOnly: true,
+		entries: [
+			{
+				org: "Bethany Care Society",
+				logo: "img/logos/bethany.png",
+				role: "Volunteer / Quality of Life Ambassador",
+				dates: "Aug. 2022 – Present",
+				points: [
+					"Supporting residents with mid-to-late-stage dementia through one-on-one art therapy (“Opening Minds through Art”), mealtime assistance, and weekly piano performances.",
+					"Observing firsthand how residents with varying cognitive and motor abilities interact with activities, which shaped the accessible design of **Welicare**."
 				]
 			}
 		]
