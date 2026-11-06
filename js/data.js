@@ -23,7 +23,7 @@ const PROFILE = {
 		{ src: "img/about/system-test.jpg", alt: "UBC Solar team running a full system test with live telemetry" },
 		{ src: "img/about/battery-testing.jpg", alt: "UBC Solar team testing battery modules and electronics" },
 		{ src: "img/about/ubc-solar-team.jpg", alt: "The UBC Solar team with the solar car" },
-		{ src: "img/about/driver-display.jpg", alt: "Debugging a UBC Solar driver display board" },
+		{ src: "img/about/driver-display-board.jpg", alt: "Debugging a UBC Solar driver display board" },
 	],
 	email: "natasha.mykytiuk@gmail.com",
 	linkedin: "https://www.linkedin.com/in/natashamykytiuk",
@@ -142,7 +142,7 @@ const EXPERIENCE = [
 				role: "Volunteer / Quality of Life Ambassador",
 				dates: "Aug. 2022 – Present",
 				points: [
-					"Supporting residents with mid-to-late-stage dementia through one-on-one art therapy (“Opening Minds through Art”), mealtime assistance, and weekly piano performances.",
+					"Supporting residents with **mid-to-late-stage dementia** through one-on-one art therapy (“Opening Minds through Art”), mealtime assistance, and weekly piano performances.",
 					"Observing firsthand how residents with varying cognitive and motor abilities interact with activities, which shaped the accessible design of **Welicare**."
 				]
 			}
@@ -162,6 +162,26 @@ const HOME_PROJECT_COUNT = 3;
 	about:   optional longer paragraphs shown only on the project page, above the bullets.
 	points:  the "What I did" bullets on the project page. */
 const PROJECTS = [
+	{
+		title: "Driver Display LCD Redesign (UBC Solar)",
+		slug: "driver-display",
+		why: [],
+		photos: [
+			{ src: "img/driver-display/display-board.jpg", alt: "UBC Solar driver display board held in hand, with the LCD showing kph, battery percentage and placeholder XX speed digits", caption: "The driver display board (DRD) with its LCD, hazard and eco/power switches, and status LEDs." },
+			{ src: "img/driver-display/jlink-debug-setup.jpg", alt: "Driver display board with a lit LCD connected by ribbon cable to SEGGER J-Link debuggers and a second test board", caption: "Flashing and debugging the STM32 firmware over J-Link on the bench." },
+			{ src: "img/driver-display/telemetry-dashboard.jpg", alt: "Laptop showing a telemetry dashboard with DRD fault flags, MCU temperature of 33 and MCU voltage of 3286, next to the driver display board", caption: "Checking DRD health data, fault flags, MCU temperature and voltage, on the telemetry dashboard." }
+		],
+		about: [],
+		summary: "Redesigning the 5-page LCD interface the UBC Solar driver sees during races, with C firmware on FreeRTOS for an STM32.",
+		subtitle: "Embedded Firmware, UBC Solar Racing",
+		tags: ["C", "FreeRTOS", "STM32", "CAN"],
+		points: [
+			"Leading the redesign of the driver's 5-page **LCD** interface, writing **C firmware** on **FreeRTOS** for an **STM32F103** and migrating fault and temperature parsing to updated **CAN IDs**.",
+			"Implementing **heartbeat monitoring** from cyclic **CAN** data to detect when other boards, the motor controller, or MPPTs stop responding.",
+			"Fixing fault-handling logic that missed flickering faults by latching faults on screen, and defining warning behavior as part of the design review requirements.",
+			"Reworking page layouts with the strategy team to surface race-critical data for the driver, and testing screen updates with simulated data in a hardcoded test harness."
+		]
+	},
 	{
 		title: "Welicare: Dementia Care Mobile App",
 		slug: "welicare",
@@ -212,6 +232,24 @@ const PROJECTS = [
 		demoLabel: "Demo"
 	},
 	{
+		title: "FPGA Keypad Scanner",
+		slug: "fpga-keypad-scanner",
+		photos: [],
+		about: [],
+		summary: "A SystemVerilog keypad scanner on an Intel MAX 10 FPGA that sends one clean key code per press to a second board, closing timing at 50 MHz.",
+		subtitle: "Digital Design, Clock Domain Crossing",
+		tags: ["SystemVerilog", "FPGA", "Intel MAX 10", "Intel Quartus Prime"],
+		points: [
+			"Designed a **SystemVerilog FSM** to scan a 4×4 matrix keypad on an **Intel MAX 10 FPGA**, outputting exactly one key code per press despite contact bounce.",
+			"Integrated two-flop **synchronizers** and a **debounce** counter so held keys and switch bounce never register as extra presses.",
+			"Built a **handshake interface** to send key codes to a second FPGA on a separate clock, holding data stable for the whole press so the receiver can sample it safely.",
+			"Wrote an **SDC** clock constraint and **closed timing at 50 MHz** with 16 ns of setup slack, and verified the design with a self-checking testbench that models key bounce."
+		],
+		github: "",	// no public repo
+		demo: "",
+		demoLabel: "Demo"
+	},
+	{
 		title: "Tally: To-Do Application",
 		slug: "tally",
 		photos: [
@@ -233,6 +271,25 @@ const PROJECTS = [
 		demoLabel: "Demo"
 	},
 	{
+		title: "Autonomous Robotic Claw",
+		slug: "autonomous-robotic-claw",
+		photos: [
+			{ src: "img/robotic-claw/claw.jpg", alt: "Cardboard and popsicle-stick robotic claw held in hand, with an Arduino, servo wiring and an ultrasonic distance sensor mounted on top", caption: "The claw, with the Arduino, servo, and ultrasonic sensor mounted on top." }
+		],
+		about: [],
+		summary: "An Arduino-controlled claw that grips, checks the lift with ultrasonic sensing, and retries on its own.",
+		subtitle: "Embedded Systems, Sensor Integration",
+		tags: ["C/C++", "Arduino", "Closed-Loop Control", "Servo Control", "Sensor Calibration"],
+		points: [
+			"Implemented a four-state control system in **C/C++** on **Arduino** to automate grip, lift verification, and retry sequences using ultrasonic sensing and servo actuation.",
+			"Wired and calibrated the ultrasonic sensor, servo, and Arduino, tuning thresholds for reliable detection within ±2 mm assembly tolerances.",
+			"Eliminated false triggering near threshold boundaries through closed-loop lift verification, resulting in stable state transitions."
+		],
+		github: "#",	// TODO
+		demo: "",
+		demoLabel: "Demo"
+	},
+	{
 		title: "Spottr: Gym Traffic Web App",
 		slug: "spottr",
 		photos: [],
@@ -249,40 +306,7 @@ const PROJECTS = [
 		github: "https://github.com/natashamykytiuk-bit/spottr",
 		demo: "",	// add the live URL once it's deployed
 		demoLabel: "Live Site"
-	},
-	{
-		title: "FPGA Keypad Scanner",
-		slug: "fpga-keypad-scanner",
-		photos: [],
-		about: [],
-		summary: "A SystemVerilog keypad scanner on an Intel MAX 10 FPGA that sends one clean key code per press to a second board, closing timing at 50 MHz.",
-		subtitle: "Digital Design, Clock Domain Crossing",
-		tags: ["SystemVerilog", "FPGA", "Intel MAX 10", "Intel Quartus Prime"],
-		points: [
-			"Designed a **SystemVerilog FSM** to scan a 4×4 matrix keypad on an **Intel MAX 10 FPGA**, outputting exactly one key code per press despite contact bounce.",
-			"Integrated two-flop **synchronizers** and a **debounce** counter so held keys and switch bounce never register as extra presses.",
-			"Built a **handshake interface** to send key codes to a second FPGA on a separate clock, holding data stable for the whole press so the receiver can sample it safely.",
-			"Wrote an **SDC** clock constraint and **closed timing at 50 MHz** with 16 ns of setup slack, and verified the design with a self-checking testbench that models key bounce."
-		],
-		github: "",	// no public repo
-		demo: "",
-		demoLabel: "Demo"
-	},
-	{
-		title: "Autonomous Robotic Claw",
-		slug: "autonomous-robotic-claw",
-		photos: [],
-		about: [],
-		summary: "An Arduino-controlled claw that grips, checks the lift with ultrasonic sensing, and retries on its own.",
-		subtitle: "Embedded Systems, Sensor Integration",
-		tags: ["C/C++", "Arduino", "Closed-Loop Control", "Servo Control", "Sensor Calibration"],
-		points: [
-			"Implemented a four-state control system in **C/C++** on **Arduino** to automate grip, lift verification, and retry sequences using ultrasonic sensing and servo actuation.",
-			"Wired and calibrated the ultrasonic sensor, servo, and Arduino, tuning thresholds for reliable detection within ±2 mm assembly tolerances.",
-			"Eliminated false triggering near threshold boundaries through closed-loop lift verification, resulting in stable state transitions."
-		],
-		github: "#",	// TODO
-		demo: "",
-		demoLabel: "Demo"
 	}
+
+
 ];
