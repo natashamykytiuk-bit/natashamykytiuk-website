@@ -111,7 +111,7 @@ const SKILL_ICONS = {
 	"SystemVerilog": "chip", "MATLAB": "code",
 	"React Native": "react", "Firestore": "firebase", "Firebase": "firebase", "Cloud Functions": "googlecloud",
 	"LLM Integration": "anthropic", "Systems Design": "gear", "Backend Architecture": "code",
-	"Accessibility-Focused UI Design": "figma",
+	"Accessibility-Focused UI Design": "accessibility",
 	"Arduino": "arduino", "FPGA (Intel MAX 10)": "intel", "FreeRTOS": "chip", "CAN": "chip",
 	"Servo Control": "gear", "Sensor Calibration": "gear", "Closed-Loop Control": "gear",
 	"Aconex": "oracle", "Bluebeam": "doc", "SOLIDWORKS": "dassaultsystemes", "Intel Quartus Prime": "intel",
@@ -119,7 +119,26 @@ const SKILL_ICONS = {
 	"Git": "git", "GitHub": "github", "Claude Code": "claude", "Figma": "figma", "Photoshop": "adobephotoshop"
 };
 
+// Full-colour logos (PNG in img/skills/) used instead of the theme-tinted icon.
+const SKILL_LOGOS = {
+	"Python": "python.png", "Java": "java.png", "JavaScript": "javascript.png", "C/C++": "cplusplus.png", "MATLAB": "matlab.png",
+	"React Native": "react.png", "Firestore": "firebase.png", "Firebase": "firebase.png", "Cloud Functions": "googlecloud.png", "LLM Integration": "llm.png",
+	"Arduino": "arduino.png", "FPGA (Intel MAX 10)": "intel.png", "FreeRTOS": "freertos.png",
+	"Aconex": "aconex.png", "Bluebeam": "bluebeam.png", "SOLIDWORKS": "solidworks.png", "Intel Quartus Prime": "quartus.png",
+	"MS Office Suite": "office.png", "SharePoint": "sharepoint.png",
+	"Git": "git.png", "GitHub": "github.png", "Claude Code": "claude.png", "Figma": "figma.png", "Photoshop": "photoshop.png"
+};
+
+// Black logos that get flipped to white in dark mode so they stay visible.
+const DARK_INVERT = new Set(["github.png", "intel.png", "llm.png"]);
+
 function skillTile(name) {
+	if (SKILL_LOGOS[name]) {
+		return el("li", { class: "skill" }, [
+			el("img", { class: "skill-logo" + (DARK_INVERT.has(SKILL_LOGOS[name]) ? " invert-dark" : ""), src: "img/skills/" + SKILL_LOGOS[name], alt: "", loading: "lazy" }),
+			el("span", { class: "skill-name", text: name })
+		]);
+	}
 	const icon = SKILL_ICONS[name] || "gear";
 	const i = el("span", { class: "skill-icon", "aria-hidden": "true" });
 	const src = `url("img/skills/${icon}.svg")`;
