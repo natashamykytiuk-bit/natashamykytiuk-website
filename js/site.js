@@ -105,10 +105,33 @@ function renderExperience(full) {
 	});
 }
 
+// Skill name -> icon file in img/skills/ (brand icons from Simple Icons; gear/chip/doc/code are generic).
+const SKILL_ICONS = {
+	"Python": "python", "Java": "openjdk", "JavaScript": "javascript", "C/C++": "cplusplus",
+	"SystemVerilog": "chip", "MATLAB": "code",
+	"React Native": "react", "Firestore": "firebase", "Firebase": "firebase", "Cloud Functions": "googlecloud",
+	"LLM Integration": "anthropic", "Systems Design": "gear", "Backend Architecture": "code",
+	"Accessibility-Focused UI Design": "figma",
+	"Arduino": "arduino", "FPGA (Intel MAX 10)": "intel", "FreeRTOS": "chip", "CAN": "chip",
+	"Servo Control": "gear", "Sensor Calibration": "gear", "Closed-Loop Control": "gear",
+	"Aconex": "oracle", "Bluebeam": "doc", "SOLIDWORKS": "dassaultsystemes", "Intel Quartus Prime": "intel",
+	"MS Office Suite": "doc", "SharePoint": "doc",
+	"Git": "git", "GitHub": "github", "Claude Code": "claude", "Figma": "figma", "Photoshop": "adobephotoshop"
+};
+
+function skillTile(name) {
+	const icon = SKILL_ICONS[name] || "gear";
+	const i = el("span", { class: "skill-icon", "aria-hidden": "true" });
+	const src = `url("img/skills/${icon}.svg")`;
+	i.style.webkitMaskImage = src;
+	i.style.maskImage = src;
+	return el("li", { class: "skill" }, [i, el("span", { class: "skill-name", text: name })]);
+}
+
 function renderSkills() {
 	const grid = document.getElementById("skills-grid");
 	SKILLS.forEach(g => grid.appendChild(
-		el("div", { class: "skill-group" }, [el("h3", { text: g.category }), tagList(g.items)])
+		el("div", { class: "skill-group" }, [el("h3", { text: g.category }), el("ul", { class: "skill-tiles" }, g.items.map(skillTile))])
 	));
 }
 
