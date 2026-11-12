@@ -11,7 +11,7 @@ const PROFILE = {
 	// Intro paragraphs. Wrap words in **double asterisks** to highlight them.
 	intro: [
 		"I'm a **Computer Engineering** student at the **University of British Columbia**, graduating in May 2029.",
-		"Right now I write embedded C/C++ firmware for **UBC Solar Racing**, working on the driver display that shows live telemetry during races. I'm also building **Welicare**, a tablet app that helps caregivers support people living with dementia.",
+		"Right now I write embedded C/C++ firmware for **[UBC Solar Racing](https://ubcsolar.com/)**, working on the driver display that shows live telemetry during races. I'm also building **[Welicare](https://welicare.ca)**, a tablet app that helps caregivers support people living with dementia.",
 		"I like work that sits between hardware and software, and I'm looking for a **Summer 2027 co-op** in software, firmware, or hardware engineering."
 	],
 	facts: ["Vancouver, BC", "Open to relocation", "Co-op: 4, 8, 12, or 16 months"],

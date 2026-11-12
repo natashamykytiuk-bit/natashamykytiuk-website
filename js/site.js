@@ -23,12 +23,22 @@ function linkButton(label, href, style, ariaLabel) {
 	return el("a", attrs);
 }
 
+// Appends text to node, turning [label](url) into external links
+function appendLinks(node, text) {
+	text.split(/(\[[^\]]+\]\([^)]+\))/).forEach(part => {
+		const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+		if (m) node.appendChild(el("a", { class: "inline-link", href: m[2], text: m[1], target: "_blank", rel: "noopener noreferrer" }));
+		else if (part) node.append(part);
+	});
+}
+
 // Turns "Built a **Firebase** backend" into text with <strong>Firebase</strong>
+// and "[label](url)" into links
 function rich(tag, text, attrs) {
 	const node = el(tag, attrs);
 	text.split("**").forEach((part, i) => {
-		if (i % 2) node.appendChild(el("strong", { text: part }));
-		else node.append(part);
+		if (i % 2) { const s = el("strong"); appendLinks(s, part); node.appendChild(s); }
+		else appendLinks(node, part);
 	});
 	return node;
 }
