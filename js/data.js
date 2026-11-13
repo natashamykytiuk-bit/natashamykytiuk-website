@@ -303,7 +303,7 @@ const PROJECTS = [
 			"Building an occupancy system that estimates how busy the gym is from active check-ins, automatically checking users out after their planned workout and filtering by muscle group or machine.",
 			"Deploying the backend on **AWS** to serve live occupancy data to the web client, with version control through **Git** and **GitHub**."
 		],
-		github: "https://github.com/natashamykytiuk-bit/spottr",
+		github: "",
 		demo: "",	// add the live URL once it's deployed
 		demoLabel: "Live Site"
 	}
