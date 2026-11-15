@@ -58,7 +58,7 @@ const EXPERIENCE = [
 				location: "Vancouver, BC",
 				dates: "Sep. 2026 – Present",
 				points: [
-					"Leading the **LCD display update** for the driver board (DRD), writing **C/C++ firmware** on **FreeRTOS** for an **STM32F103** that shows live telemetry data to the driver during races.",
+					"Leading the **LCD display update** for the driver board (DRD), developing **C/C++ firmware** on **Linux** for an **STM32F103** running **FreeRTOS** that shows live telemetry data to the driver during races.",
 					"Built **DRD health monitoring** that tracks fault flags and reports status over CAN to catch board failures.",
 					"Decoded **CAN** messages from the telemetry system and updated the display in real time, splitting the work into separate FreeRTOS tasks for CAN input, health checks, and screen drawing.",
 					"Collaborating with the electrical team to keep firmware in sync with **Altium** board revisions, debugging issues and validating changes on hardware."
@@ -179,7 +179,7 @@ const PROJECTS = [
 			"Leading the redesign of the driver's 5-page **LCD** interface, writing **C firmware** on **FreeRTOS** for an **STM32F103** and migrating fault and temperature parsing to updated **CAN IDs**.",
 			"Implementing **heartbeat monitoring** from cyclic **CAN** data to detect when other boards, the motor controller, or MPPTs stop responding.",
 			"Fixing fault-handling logic that missed flickering faults by latching faults on screen, and defining warning behavior as part of the design review requirements.",
-			"Reworking page layouts with the strategy team to surface race-critical data for the driver, and testing screen updates with simulated data in a hardcoded test harness."
+			"Reworking page layouts to surface race-critical data for the driver, and testing with simulated data."
 		]
 	},
 	{
@@ -261,10 +261,10 @@ const PROJECTS = [
 		subtitle: "Full-Stack Mobile & Web Development",
 		tags: ["React Native", "Expo", "TypeScript", "Firebase", "Firestore", "Jest"],
 		points: [
-			"Developed a cross-platform **React Native** (**Expo**, **TypeScript**) to-do and habit tracker for iOS, Android and web that helps users plan when to work on tasks, not just when they are due.",
-			"Built a **Cloud Firestore** backend with **Firebase Authentication** to store each user's lists, tasks, completions and step progress, locked to its owner by Firestore security rules.",
-			"Implemented recurring tasks with streaks and missed-day carry-over using **date-fns**, computing each day's occurrences from repeat rules instead of storing a copy per day.",
-			"Managed version control through **Git** and **GitHub**, deploying with **Firebase Hosting** and testing scheduling, streak and view logic with **Jest**."
+			"Developing a cross-platform **React Native** (**Expo**, **TypeScript**) task and habit tracker for iOS, Android, and web that helps users plan when to work on tasks, not just when they are due.",
+			"Built a **Cloud Firestore** backend with **Firebase Authentication** to store user lists, tasks, and progress, secured per user with **Firestore security rules**.",
+			"Implemented recurring tasks with streaks and missed-day carry-over using **date-fns**, generating occurrences from repeat rules instead of storing a copy per day.",
+			"Deployed with **Firebase Hosting** and tested scheduling, streak, and view logic with **Jest**, using **Git** and **GitHub** for version control."
 		],
 		github: "https://github.com/natashamykytiuk-bit/tally-to-do",
 		demo: "https://tally-to-do.web.app",
