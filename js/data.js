@@ -61,7 +61,7 @@ const EXPERIENCE = [
 					"Leading the **LCD display update** for the driver board (DRD), developing **C/C++ firmware** on **Linux** for an **STM32F103** running **FreeRTOS** that shows live telemetry data to the driver during races.",
 					"Built **DRD health monitoring** that tracks fault flags and reports status over CAN to catch board failures.",
 					"Decoded **CAN** messages from the telemetry system and updated the display in real time, splitting the work into separate FreeRTOS tasks for CAN input, health checks, and screen drawing.",
-					"Collaborating with the electrical team to keep firmware in sync with **Altium** board revisions, debugging issues and validating changes on hardware."
+					"Keeping firmware in sync with **Altium** board revisions, debugging issues and validating changes on hardware."
 				]
 			}
 		]
