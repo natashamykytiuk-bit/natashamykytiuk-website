@@ -204,7 +204,6 @@ const PROJECTS = [
 			"Developing a **React Native** tablet app that helps caregivers provide personalized care for individuals living with dementia.",
 			"Architecting a **Firebase** backend using Authentication, **Firestore**, and **Cloud Functions** with role-based access across shared care organizations.",
 			"Developing an AI system for personalized activities, trivia, conversation prompts, and media recommendations with an accessibility-focused mobile interface.",
-			"Using **Claude Code** to support development, debugging, and testing, with version control through **Git** and **GitHub**.",
 			"Applying accessible design principles (high contrast, large touch targets, legible typography) using **Photoshop** and **Figma**."
 		],
 		github: "https://github.com/natashamykytiuk-bit/Welicare",
