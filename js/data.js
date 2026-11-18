@@ -201,11 +201,11 @@ const PROJECTS = [
 		subtitle: "Full-Stack Development, LLM Integration",
 		tags: ["React Native", "Firebase", "Firestore", "Cloud Functions", "LLM Integration", "Figma"],
 		points: [
-			"Developing a **React Native** tablet app that helps caregivers provide personalized care for individuals living with dementia.",
-			"Architecting a **Firebase** backend using Authentication, **Firestore**, and **Cloud Functions** with role-based access across shared care organizations.",
-			"Developing an AI system for personalized activities, trivia, conversation prompts, and media recommendations with an accessibility-focused mobile interface.",
-			"Managing version control through **Git** and **GitHub**.",
-			"Applying accessible design principles (high contrast, large touch targets, legible typography) using **Photoshop** and **Figma**."
+			"Developing a **React Native** tablet application that helps recreation staff provide personalized activities, guided meditation, trivia, and music for individuals living with dementia.",
+			"Architecting a **Firebase** backend using Authentication, **Firestore**, and **Cloud Functions**, with five user roles and security rules that separate data between care facilities.",
+			"Integrating an **LLM** through **Cloud Functions** to generate activity ideas, conversation topics, and topics to avoid from each resident’s life story.",
+			"Training a **PyTorch** text classifier to filter out AI suggestions that could be triggering or inappropriate for people with dementia.",
+			"Applying accessible design principles (ex. high contrast, large touch targets, legible typography) using **Figma** and **Photoshop**."
 		],
 		github: "https://github.com/natashamykytiuk-bit/Welicare",
 		demo: "https://welicare.ca",
