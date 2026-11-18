@@ -282,8 +282,8 @@ const PROJECTS = [
 		tags: ["C/C++", "Arduino", "Closed-Loop Control", "Servo Control", "Sensor Calibration"],
 		points: [
 			"Implemented a four-state control system in **C/C++** on **Arduino** to automate grip, lift verification, and retry sequences using ultrasonic sensing and servo actuation.",
-			"Wired and calibrated the ultrasonic sensor, servo, and Arduino, tuning thresholds for reliable detection within ±2 mm assembly tolerances.",
-			"Eliminated false triggering near threshold boundaries through closed-loop lift verification, resulting in stable state transitions."
+			"Wired and calibrated the ultrasonic sensor, servo, and Arduino, tuning distance thresholds for reliable object detection.",
+			"Added closed-loop lift verification to detect failed grabs and trigger automatic retries, keeping state transitions stable."
 		],
 		github: "#",	// TODO
 		demo: "",
